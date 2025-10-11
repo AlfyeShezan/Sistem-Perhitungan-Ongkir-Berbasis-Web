@@ -1,60 +1,4 @@
-// Multi-language support
-        let currentLang = 'id';
-
-        // Toggle language dropdown
-        function toggleLanguageDropdown() {
-            const dropdown = document.getElementById('langDropdown');
-            dropdown.classList.toggle('active');
-        }
-
-        // Close dropdown when clicking outside
-        document.addEventListener('click', function(event) {
-            const langSwitcher = document.querySelector('.language-switcher');
-            const dropdown = document.getElementById('langDropdown');
-            
-            if (!langSwitcher.contains(event.target)) {
-                dropdown.classList.remove('active');
-            }
-        });
-
-        function changeLanguage(lang) {
-            currentLang = lang;
-            
-            // Update current language text
-            document.getElementById('currentLangText').textContent = lang.toUpperCase();
-            
-            // Update active option
-            document.querySelectorAll('.lang-option').forEach(option => {
-                option.classList.remove('active');
-                if (option.getAttribute('data-lang') === lang) {
-                    option.classList.add('active');
-                }
-            });
-
-            // Close dropdown
-            document.getElementById('langDropdown').classList.remove('active');
-
-            // Update all translatable elements
-            document.querySelectorAll('[data-lang-id]').forEach(el => {
-                const text = el.getAttribute(`data-lang-${lang}`);
-                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-                    // For input placeholder
-                    const placeholder = el.getAttribute(`data-lang-placeholder-${lang}`);
-                    if (placeholder) {
-                        el.placeholder = placeholder;
-                    }
-                } else if (el.tagName === 'OPTION') {
-                    el.textContent = text;
-                } else {
-                    el.textContent = text;
-                }
-            });
-
-            // Update document language
-            document.documentElement.lang = lang;
-        }
-
-        // Toggle mobile menu
+    // Toggle mobile menu
         function toggleMenu() {
             const navMenu = document.getElementById('navMenu');
             navMenu.classList.toggle('active');
@@ -208,3 +152,4 @@
             alert(translations[currentLang].messageSent);
             this.reset();
         });
+
