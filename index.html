@@ -11,20 +11,44 @@
 <body>
     <!-- Navbar -->
     <nav class="navbar">
-        <div class="container">
-            <a href="#home" class="logo">
-                <i class="fas fa-shipping-fast"></i>
-                Jogja Delivery
-            </a>
-            <div class="hamburger" onclick="toggleMenu()">
-                <span></span><span></span><span></span>
+            <div class="container">
+    <a href="#home" class="logo">
+        <i class="fas fa-shipping-fast"></i>
+        Jogja Delivery
+    </a>
+
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span><span></span><span></span>
+        </div>
+
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="#home" data-lang-id="Home" data-lang-en="Home">Beranda</a></li>
+            <li><a href="#cek-ongkir" data-lang-id="Cek Ongkir" data-lang-en="Check Shipping">Cek Ongkir</a></li>
+            <li><a href="#tentang-kami" data-lang-id="Tentang Kami" data-lang-en="About Us">Tentang Kami</a></li>
+            <li><a href="#kontak" data-lang-id="Kontak" data-lang-en="Contact">Kontak</a></li>
+        </ul>
+
+        <!-- Pindahkan language switcher ke sini -->
+        <div class="language-switcher">
+            <button class="lang-toggle" onclick="toggleLanguageDropdown()">
+                <i class="fas fa-globe"></i>
+                <span id="currentLangText">ID</span>
+                <i class="fas fa-chevron-down" style="font-size: 0.8rem;"></i>
+            </button>
+            <div class="lang-dropdown" id="langDropdown">
+                <div class="lang-option active" onclick="changeLanguage('id')" data-lang="id">
+                    <div class="lang-text">
+                        <span class="lang-name">Bahasa Indonesia</span>
+                    </div>
+                </div>
+                <div class="lang-option" onclick="changeLanguage('en')" data-lang="en">
+                    <div class="lang-text">
+                        <span class="lang-name">English</span>
+                    </div>
+                </div>
             </div>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#cek-ongkir">Cek Ongkir</a></li>
-                <li><a href="#tentang-kami">Tentang Kami</a></li>
-                <li><a href="#kontak">Kontak</a></li>
-            </ul>
+        </div>
+    </div>
         </div>
     </nav>
 
@@ -32,10 +56,18 @@
     <section class="hero" id="home">
         <div class="container">
             <div class="hero-content">
-                <h1>Kirim Cepat, Aman, dan Terjangkau di Seluruh Yogyakarta</h1>
-                <p><i class="fas fa-map-marker-alt"></i> Melayani pengiriman ke seluruh wilayah Daerah Istimewa Yogyakarta</p>
+                <h1 data-lang-id="Kirim Cepat, Aman, dan Terjangkau di Seluruh Yogyakarta" data-lang-en="Fast, Safe, and Affordable Delivery Throughout Yogyakarta">
+                    Kirim Cepat, Aman, dan Terjangkau di Seluruh Yogyakarta
+                </h1>
+                <p>
+                    <i class="fas fa-map-marker-alt"></i> 
+                    <span data-lang-id="Melayani pengiriman ke seluruh wilayah Daerah Istimewa Yogyakarta" data-lang-en="Serving delivery to all areas of Yogyakarta Special Region">
+                        Melayani pengiriman ke seluruh wilayah Daerah Istimewa Yogyakarta
+                    </span>
+                </p>
                 <button class="btn-primary" onclick="scrollToForm()">
-                    <i class="fas fa-calculator"></i> Mulai Hitung Ongkir
+                    <i class="fas fa-calculator"></i> 
+                    <span data-lang-id="Mulai Hitung Ongkir" data-lang-en="Calculate Shipping Cost">Mulai Hitung Ongkir</span>
                 </button>
             </div>
             <div class="hero-illustration">
@@ -47,65 +79,92 @@
     <!-- Form Section -->
     <section class="form-section" id="cek-ongkir">
         <div class="container">
-            <h2 class="section-title"><i class="fas fa-calculator"></i> Hitung Ongkos Kirim</h2>
+            <h2 class="section-title">
+                <i class="fas fa-calculator"></i> 
+                <span data-lang-id="Hitung Ongkos Kirim" data-lang-en="Calculate Shipping Cost">Hitung Ongkos Kirim</span>
+            </h2>
             
             <div id="alertBox" class="alert"></div>
 
             <div class="form-card">
                 <form id="ongkirForm">
                     <div class="form-group">
-                        <label for="kotaAsal"><i class="fas fa-map-marker-alt"></i>Kota Asal</label>
+                        <label for="kotaAsal">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span data-lang-id="Kota Asal" data-lang-en="Origin City">Kota Asal</span>
+                        </label>
                         <select class="form-control" id="kotaAsal" required>
-                            <option value="">-- Pilih Kota Asal --</option>
-                            <option value="Kota Yogyakarta">Kota Yogyakarta</option>
-                            <option value="Sleman">Kabupaten Sleman</option>
-                            <option value="Bantul">Kabupaten Bantul</option>
-                            <option value="Gunungkidul">Kabupaten Gunungkidul</option>
-                            <option value="Kulonprogo">Kabupaten Kulon Progo</option>
+                            <option value="" data-lang-id="-- Pilih Kota Asal --" data-lang-en="-- Select Origin City --">-- Pilih Kota Asal --</option>
+                            <option value="Kota Yogyakarta" data-lang-id="Kota Yogyakarta" data-lang-en="Yogyakarta City">Kota Yogyakarta</option>
+                            <option value="Sleman" data-lang-id="Kabupaten Sleman" data-lang-en="Sleman Regency">Kabupaten Sleman</option>
+                            <option value="Bantul" data-lang-id="Kabupaten Bantul" data-lang-en="Bantul Regency">Kabupaten Bantul</option>
+                            <option value="Gunungkidul" data-lang-id="Kabupaten Gunungkidul" data-lang-en="Gunungkidul Regency">Kabupaten Gunungkidul</option>
+                            <option value="Kulonprogo" data-lang-id="Kabupaten Kulon Progo" data-lang-en="Kulon Progo Regency">Kabupaten Kulon Progo</option>
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label for="kotaTujuan"><i class="fas fa-map-pin"></i>Kota Tujuan</label>
+                        <label for="kotaTujuan">
+                            <i class="fas fa-map-pin"></i>
+                            <span data-lang-id="Kota Tujuan" data-lang-en="Destination City">Kota Tujuan</span>
+                        </label>
                         <select class="form-control" id="kotaTujuan" required>
-                            <option value="">-- Pilih Kota Tujuan --</option>
-                            <option value="Kota Yogyakarta">Kota Yogyakarta</option>
-                            <option value="Sleman">Kabupaten Sleman</option>
-                            <option value="Bantul">Kabupaten Bantul</option>
-                            <option value="Gunungkidul">Kabupaten Gunungkidul</option>
-                            <option value="Kulonprogo">Kabupaten Kulon Progo</option>
+                            <option value="" data-lang-id="-- Pilih Kota Tujuan --" data-lang-en="-- Select Destination City --">-- Pilih Kota Tujuan --</option>
+                            <option value="Kota Yogyakarta" data-lang-id="Kota Yogyakarta" data-lang-en="Yogyakarta City">Kota Yogyakarta</option>
+                            <option value="Sleman" data-lang-id="Kabupaten Sleman" data-lang-en="Sleman Regency">Kabupaten Sleman</option>
+                            <option value="Bantul" data-lang-id="Kabupaten Bantul" data-lang-en="Bantul Regency">Kabupaten Bantul</option>
+                            <option value="Gunungkidul" data-lang-id="Kabupaten Gunungkidul" data-lang-en="Gunungkidul Regency">Kabupaten Gunungkidul</option>
+                            <option value="Kulonprogo" data-lang-id="Kabupaten Kulon Progo" data-lang-en="Kulon Progo Regency">Kabupaten Kulon Progo</option>
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label for="beratPaket"><i class="fas fa-weight-hanging"></i>Berat Paket (kg)</label>
-                        <input type="number" class="form-control" id="beratPaket" placeholder="Masukkan berat paket" min="1" step="0.1" required>
+                        <label for="beratPaket">
+                            <i class="fas fa-weight-hanging"></i>
+                            <span data-lang-id="Berat Paket (kg)" data-lang-en="Package Weight (kg)">Berat Paket (kg)</span>
+                        </label>
+                        <input type="number" class="form-control" id="beratPaket" data-lang-placeholder-id="Masukkan berat paket" data-lang-placeholder-en="Enter package weight" placeholder="Masukkan berat paket" min="1" step="0.1" required>
                     </div>
 
-                    <button type="submit" class="btn-calculate"><i class="fas fa-calculator"></i> Hitung Ongkir</button>
+                    <button type="submit" class="btn-calculate">
+                        <i class="fas fa-calculator"></i> 
+                        <span data-lang-id="Hitung Ongkir" data-lang-en="Calculate Cost">Hitung Ongkir</span>
+                    </button>
                 </form>
 
                 <div class="loader" id="loader">
                     <div class="loader-spinner"></div>
-                    <p style="margin-top: 10px; color: var(--primary-color);">Menghitung ongkir...</p>
+                    <p style="margin-top: 10px; color: var(--primary-color);" data-lang-id="Menghitung ongkir..." data-lang-en="Calculating shipping cost...">Menghitung ongkir...</p>
                 </div>
 
                 <div class="result-card" id="resultCard">
-                    <h3><i class="fas fa-receipt"></i> Detail Pengiriman</h3>
+                    <h3>
+                        <i class="fas fa-receipt"></i> 
+                        <span data-lang-id="Detail Pengiriman" data-lang-en="Shipping Details">Detail Pengiriman</span>
+                    </h3>
                     <div class="result-item">
-                        <span><i class="fas fa-location-dot"></i> Kota Asal</span>
+                        <span>
+                            <i class="fas fa-location-dot"></i> 
+                            <span data-lang-id="Kota Asal" data-lang-en="Origin City">Kota Asal</span>
+                        </span>
                         <strong id="resultAsal"></strong>
                     </div>
                     <div class="result-item">
-                        <span><i class="fas fa-location-crosshairs"></i> Kota Tujuan</span>
+                        <span>
+                            <i class="fas fa-location-crosshairs"></i> 
+                            <span data-lang-id="Kota Tujuan" data-lang-en="Destination City">Kota Tujuan</span>
+                        </span>
                         <strong id="resultTujuan"></strong>
                     </div>
                     <div class="result-item">
-                        <span><i class="fas fa-box"></i> Berat Paket</span>
+                        <span>
+                            <i class="fas fa-box"></i> 
+                            <span data-lang-id="Berat Paket" data-lang-en="Package Weight">Berat Paket</span>
+                        </span>
                         <strong id="resultBerat"></strong>
                     </div>
                     <div class="result-total">
-                        <div style="font-size: 1rem; margin-bottom: 10px;">Total Ongkir</div>
+                        <div style="font-size: 1rem; margin-bottom: 10px;" data-lang-id="Total Ongkir" data-lang-en="Total Shipping Cost">Total Ongkir</div>
                         <div><i class="fas fa-money-bill-wave"></i> Rp. <span id="resultTotal"></span></div>
                     </div>
                 </div>
@@ -116,59 +175,72 @@
     <!-- About Section -->
     <section class="about-section" id="tentang-kami">
         <div class="container">
-            <h2 class="section-title"><i class="fas fa-info-circle"></i> Tentang Kami</h2>
+            <h2 class="section-title">
+                <i class="fas fa-info-circle"></i> 
+                <span data-lang-id="Tentang Kami" data-lang-en="About Us">Tentang Kami</span>
+            </h2>
             <div class="about-content">
-                <p>Jogja Delivery adalah layanan pengiriman cepat dan terpercaya yang melayani seluruh wilayah Daerah Istimewa Yogyakarta. Kami siap membantu kebutuhan pengiriman Anda dengan tarif ongkir menyesuaikan jarak antar kota.</p>
+                <p data-lang-id="Jogja Delivery adalah layanan pengiriman cepat dan terpercaya yang melayani seluruh wilayah Daerah Istimewa Yogyakarta. Kami siap membantu kebutuhan pengiriman Anda dengan tarif ongkir menyesuaikan jarak antar kota." data-lang-en="Jogja Delivery is a fast and reliable delivery service that serves the entire Special Region of Yogyakarta. We are ready to help your delivery needs with shipping rates adjusted to the distance between cities.">
+                    Jogja Delivery adalah layanan pengiriman cepat dan terpercaya yang melayani seluruh wilayah Daerah Istimewa Yogyakarta. Kami siap membantu kebutuhan pengiriman Anda dengan tarif ongkir menyesuaikan jarak antar kota.
+                </p>
             </div>
             <div class="about-features">
                 <div class="feature-box">
                     <i class="fas fa-bolt"></i>
-                    <h4>Cepat & Tepat</h4>
-                    <p>Pengiriman hari ini sampai hari ini juga</p>
+                    <h4 data-lang-id="Cepat & Tepat" data-lang-en="Fast & Accurate">Cepat & Tepat</h4>
+                    <p data-lang-id="Pengiriman hari ini sampai hari ini juga" data-lang-en="Same-day delivery service">Pengiriman hari ini sampai hari ini juga</p>
                 </div>
                 <div class="feature-box">
                     <i class="fas fa-shield-halved"></i>
-                    <h4>Aman Terjamin</h4>
-                    <p>Paket dijamin aman dengan asuransi</p>
+                    <h4 data-lang-id="Aman Terjamin" data-lang-en="Safe & Secure">Aman Terjamin</h4>
+                    <p data-lang-id="Paket dijamin aman dengan asuransi" data-lang-en="Package guaranteed safe with insurance">Paket dijamin aman dengan asuransi</p>
                 </div>
                 <div class="feature-box">
                     <i class="fas fa-hand-holding-dollar"></i>
-                    <h4>Harga Dinamis</h4>
-                    <p>Tarif mulai dari Rp. 5.000/kg tergantung jarak antar kota di Yogyakarta</p>
+                    <h4 data-lang-id="Harga Dinamis" data-lang-en="Dynamic Pricing">Harga Dinamis</h4>
+                    <p data-lang-id="Tarif mulai dari Rp. 5.000/kg tergantung jarak antar kota di Yogyakarta" data-lang-en="Rates start from Rp. 5,000/kg depending on distance between cities in Yogyakarta">Tarif mulai dari Rp. 5.000/kg tergantung jarak antar kota di Yogyakarta</p>
                 </div>
             </div>
         </div>
     </section>
+
     <!-- Contact Section -->
     <section class="contact-section" id="kontak">
         <div class="container">
-            <h2 class="section-title"><i class="fas fa-envelope"></i> Hubungi Kami</h2>
+            <h2 class="section-title">
+                <i class="fas fa-envelope"></i> 
+                <span data-lang-id="Hubungi Kami" data-lang-en="Contact Us">Hubungi Kami</span>
+            </h2>
 
             <div class="form-card">
                 <form id="contactForm">
                     <div class="form-group">
                         <label for="nama">
-                            <i class="fas fa-user"></i> Nama Lengkap
+                            <i class="fas fa-user"></i> 
+                            <span data-lang-id="Nama Lengkap" data-lang-en="Full Name">Nama Lengkap</span>
                         </label>
-                        <input type="text" class="form-control" id="nama" placeholder="Masukkan nama Anda" required>
+                        <input type="text" class="form-control" id="nama" data-lang-placeholder-id="Masukkan nama Anda" data-lang-placeholder-en="Enter your name" placeholder="Masukkan nama Anda" required>
                     </div>
 
                     <div class="form-group">
                         <label for="whatsapp">
-                            <i class="fab fa-whatsapp"></i> Nomor WhatsApp
+                            <i class="fab fa-whatsapp"></i> 
+                            <span data-lang-id="Nomor WhatsApp" data-lang-en="WhatsApp Number">Nomor WhatsApp</span>
                         </label>
                         <input type="tel" class="form-control" id="whatsapp" placeholder="08xxxxxxxxxx" required>
                     </div>
 
                     <div class="form-group">
                         <label for="pesan">
-                            <i class="fas fa-message"></i> Pesan
+                            <i class="fas fa-message"></i> 
+                            <span data-lang-id="Pesan" data-lang-en="Message">Pesan</span>
                         </label>
-                        <textarea class="form-control" id="pesan" rows="5" placeholder="Tulis pesan Anda..." required></textarea>
+                        <textarea class="form-control" id="pesan" rows="5" data-lang-placeholder-id="Tulis pesan Anda..." data-lang-placeholder-en="Write your message..." placeholder="Tulis pesan Anda..." required></textarea>
                     </div>
 
                     <button type="submit" class="btn-calculate">
-                        <i class="fas fa-paper-plane"></i> Kirim Pesan
+                        <i class="fas fa-paper-plane"></i> 
+                        <span data-lang-id="Kirim Pesan" data-lang-en="Send Message">Kirim Pesan</span>
                     </button>
                 </form>
             </div>
@@ -177,10 +249,13 @@
 
     <!-- Footer -->
     <footer>
-        <p>© 2025 Jogja Delivery. Made with ❤️ in Yogyakarta.</p>
+        <p data-lang-id="© 2025 Jogja Delivery. Made with ❤️ in Yogyakarta." data-lang-en="© 2025 Jogja Delivery. Made with ❤️ in Yogyakarta.">
+            © 2025 Jogja Delivery. Made with ❤️ in Yogyakarta.
+        </p>
     </footer>
 
     <!-- Panggil script.js -->
     <script src="script.js"></script>
+
 </body>
 </html>
