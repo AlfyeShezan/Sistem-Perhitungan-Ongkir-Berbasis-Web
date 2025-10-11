@@ -580,8 +580,7 @@ footer p {
     }
 
     .navbar .container {
-        gap: 10px;
-        flex-wrap: nowrap;
+        gap: 15px;
     }
 
     .nav-menu {
@@ -613,42 +612,36 @@ footer p {
     }
 
     .language-switcher {
-        position: relative;
-        margin-left: auto;
-    }
-
-    .lang-toggle {
-        padding: 6px 10px;
-        font-size: 0.85rem;
-    }
-
-    .lang-toggle i:first-child {
-        font-size: 1rem;
-    }
-
-    .lang-toggle i:last-child {
-        font-size: 0.7rem;
+        position: absolute;
+        top: 15px;
+        right: 70px;
     }
 
     .lang-dropdown {
         right: 0;
-        top: 45px;
-        min-width: 180px;
     }
 
-    .lang-option {
-        padding: 12px 15px;
+    .hero .container {
+        grid-template-columns: 1fr;
     }
 
-    .lang-option .flag-icon {
-        font-size: 1.3rem;
+    .hero-content h1 {
+        font-size: 2rem;
     }
 
-    .lang-text .lang-name {
-        font-size: 0.85rem;
+    .hero-illustration i {
+        font-size: 8rem;
     }
 
-    .lang-text .lang-subtitle {
-        font-size: 0.7rem;
+    .about-features {
+        grid-template-columns: 1fr;
+    }
+
+    .form-card {
+        padding: 25px;
+    }
+
+    .result-total {
+        font-size: 1.5rem;
     }
 }
