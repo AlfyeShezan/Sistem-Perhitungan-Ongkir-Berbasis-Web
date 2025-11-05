@@ -11,22 +11,48 @@
 <body>
     <!-- Navbar -->
     <nav class="navbar">
-            <div class="container">
-    <a href="#home" class="logo">
-        <i class="fas fa-shipping-fast"></i>
-        Jogja Delivery
-    </a>
+        <div class="container">
+            <a href="#home" class="logo">
+                <i class="fas fa-shipping-fast"></i>
+                Swift Jogja
+            </a>
 
-        <div class="hamburger" onclick="toggleMenu()">
-            <span></span><span></span><span></span>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span><span></span><span></span>
+            </div>
+
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" data-lang-id="Beranda" data-lang-en="Home">Beranda</a></li>
+                <li><a href="#cek-ongkir" data-lang-id="Cek Ongkir" data-lang-en="Check Shipping">Cek Ongkir</a></li>
+                <li><a href="#tentang-kami" data-lang-id="Tentang Kami" data-lang-en="About Us">Tentang Kami</a></li>
+                <li><a href="#kontak" data-lang-id="Kontak" data-lang-en="Contact">Kontak</a></li>
+            </ul>
+
+            <!-- Language Switcher -->
+            <div class="language-switcher">
+                <button class="lang-toggle" onclick="toggleLanguageDropdown()">
+                    <i class="fas fa-globe"></i>
+                    <span id="currentLangText">ID</span>
+                    <i class="fas fa-chevron-down" style="font-size: 0.8rem;"></i>
+                </button>
+                <div class="lang-dropdown" id="langDropdown">
+                    <div class="lang-option active" onclick="changeLanguage('id')" data-lang="id">
+                        <span class="flag-icon">🇮🇩</span>
+                        <div class="lang-text">
+                            <span class="lang-name">Bahasa Indonesia</span>
+                            <span class="lang-subtitle">Indonesian</span>
+                        </div>
+                    </div>
+                    <div class="lang-option" onclick="changeLanguage('en')" data-lang="en">
+                        <span class="flag-icon">🇬🇧</span>
+                        <div class="lang-text">
+                            <span class="lang-name">English</span>
+                            <span class="lang-subtitle">English</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <ul class="nav-menu" id="navMenu">
-            <li><a href="#home" data-lang-id="Beranda" data-lang-en="Home">Beranda</a></li>
-            <li><a href="#cek-ongkir" data-lang-id="Cek Ongkir" data-lang-en="Check Shipping">Cek Ongkir</a></li>
-            <li><a href="#tentang-kami" data-lang-id="Tentang Kami" data-lang-en="About Us">Tentang Kami</a></li>
-            <li><a href="#kontak" data-lang-id="Kontak" data-lang-en="Contact">Kontak</a></li>
-        </ul>
     </nav>
 
     <!-- Hero Section -->
@@ -197,6 +223,7 @@
                             <span data-lang-id="Nama Lengkap" data-lang-en="Full Name">Nama Lengkap</span>
                         </label>
                         <input type="text" class="form-control" id="nama" data-lang-placeholder-id="Masukkan nama Anda" data-lang-placeholder-en="Enter your name" placeholder="Masukkan nama Anda" required>
+                        <div class="error-message" id="namaError"></div>
                     </div>
 
                     <div class="form-group">
@@ -205,6 +232,7 @@
                             <span data-lang-id="Nomor WhatsApp" data-lang-en="WhatsApp Number">Nomor WhatsApp</span>
                         </label>
                         <input type="tel" class="form-control" id="whatsapp" placeholder="08xxxxxxxxxx" required>
+                        <div class="error-message" id="whatsappError"></div>
                     </div>
 
                     <div class="form-group">
@@ -213,6 +241,10 @@
                             <span data-lang-id="Pesan" data-lang-en="Message">Pesan</span>
                         </label>
                         <textarea class="form-control" id="pesan" rows="5" data-lang-placeholder-id="Tulis pesan Anda..." data-lang-placeholder-en="Write your message..." placeholder="Tulis pesan Anda..." required></textarea>
+                        <div class="error-message" id="pesanError"></div>
+                        <div class="char-counter">
+                            <span id="charCount">0</span>/500 <span data-lang-id="karakter" data-lang-en="characters">karakter</span>
+                        </div>
                     </div>
 
                     <button type="submit" class="btn-calculate">
@@ -226,15 +258,11 @@
 
     <!-- Footer -->
     <footer>
-        <p data-lang-id="© 2025 Jogja Delivery. Made with ❤️ in Yogyakarta." data-lang-en="© 2025 Jogja Delivery. Made with ❤️ in Yogyakarta.">
-            © 2025 Jogja Delivery. Made with ❤️ in Yogyakarta.
+        <p data-lang-id="© 2025 Swift Jogja. Made with ❤️ in Yogyakarta." data-lang-en="© 2025 Swift Jogja. Made with ❤️ in Yogyakarta.">
+            © 2025 Swift Jogja. Made with ❤️ in Yogyakarta.
         </p>
     </footer>
 
-    <!-- Panggil script.js -->
     <script src="script.js"></script>
-
 </body>
 </html>
-
-
