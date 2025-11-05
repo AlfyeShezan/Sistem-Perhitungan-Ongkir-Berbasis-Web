@@ -12,6 +12,8 @@
     --light-gray: #F5F5F7;
     --dark-text: #2C2C2C;
     --white: #FFFFFF;
+    --error-color: #e74c3c;
+    --success-color: #27ae60;
 }
 
 body {
@@ -337,6 +339,7 @@ body {
 
 .form-group {
     margin-bottom: 25px;
+    position: relative;
 }
 
 .form-group label {
@@ -489,14 +492,14 @@ body {
 
 .alert-error {
     background: #FFE5E5;
-    color: #D63031;
-    border-left: 4px solid #D63031;
+    color: var(--error-color);
+    border-left: 4px solid var(--error-color);
 }
 
 .alert-success {
     background: #E5F9E5;
-    color: #27AE60;
-    border-left: 4px solid #27AE60;
+    color: var(--success-color);
+    border-left: 4px solid var(--success-color);
 }
 
 /* About Section */
@@ -558,6 +561,52 @@ body {
 .contact-section .container {
     max-width: 800px;
     margin: 0 auto;
+}
+
+/* Styling untuk form error states */
+.form-group.error .form-control {
+    border-color: var(--error-color);
+    box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.2);
+}
+
+.form-group.error label {
+    color: var(--error-color);
+}
+
+.error-message {
+    color: var(--error-color);
+    font-size: 0.85rem;
+    margin-top: 5px;
+    display: none;
+}
+
+.form-control.error {
+    border-color: var(--error-color);
+}
+
+/* Character counter */
+.char-counter {
+    text-align: right;
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 5px;
+}
+
+.char-counter.warning {
+    color: #f39c12;
+}
+
+.char-counter.error {
+    color: var(--error-color);
+}
+
+/* Success state */
+.form-group.success .form-control {
+    border-color: var(--success-color);
+}
+
+.form-group.success label {
+    color: var(--success-color);
 }
 
 /* Footer */
