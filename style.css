@@ -622,33 +622,85 @@ footer p {
     font-size: 1rem;
 }
 
-/* Responsive */
+/* ================================ */
+/* PERBAIKAN RESPONSIVE MOBILE */
+/* ================================ */
+
 @media (max-width: 768px) {
     .hamburger {
         display: flex;
+        order: 3;
+        margin-left: auto;
     }
 
     .navbar .container {
         gap: 15px;
+        flex-wrap: wrap;
+        position: relative;
+        min-height: 60px;
     }
 
-    .nav-menu {
+    /* Logo di kiri atas */
+    .logo {
+        order: 1;
+        font-size: 1.5rem;
+        z-index: 1001;
+    }
+
+    .logo i {
+        font-size: 1.7rem;
+    }
+
+    /* Language switcher di kanan atas */
+    .language-switcher {
+        order: 2;
         position: absolute;
+        top: 15px;
+        right: 60px;
+        z-index: 1001;
+    }
+
+    /* Perbaikan ukuran tombol bahasa di mobile */
+    .lang-toggle {
+        padding: 6px 12px;
+        font-size: 0.9rem;
+    }
+
+    .lang-toggle i {
+        font-size: 1rem;
+    }
+
+    /* Dropdown bahasa di mobile */
+    .lang-dropdown {
+        position: fixed;
+        top: 70px;
+        right: 15px;
+        left: 15px;
+        min-width: auto;
+        z-index: 1002;
+    }
+
+    /* Menu navigasi - full width di bawah header */
+    .nav-menu {
+        position: fixed;
         top: 70px;
         left: -100%;
         flex-direction: column;
         background: var(--white);
         width: 100%;
+        height: calc(100vh - 70px);
         padding: 20px;
         box-shadow: 0 5px 10px rgba(0,0,0,0.1);
         transition: left 0.3s;
         gap: 0;
         justify-content: flex-start;
+        z-index: 1000;
+        overflow-y: auto;
     }
 
     .nav-menu li {
         width: 100%;
-        padding: 12px 0;
+        padding: 15px 0;
         border-bottom: 1px solid #f0f0f0;
     }
 
@@ -660,18 +712,10 @@ footer p {
         left: 0;
     }
 
-    .language-switcher {
-        position: absolute;
-        top: 15px;
-        right: 70px;
-    }
-
-    .lang-dropdown {
-        right: 0;
-    }
-
+    /* Hero section mobile */
     .hero .container {
         grid-template-columns: 1fr;
+        text-align: center;
     }
 
     .hero-content h1 {
@@ -682,15 +726,104 @@ footer p {
         font-size: 8rem;
     }
 
+    /* About features mobile */
     .about-features {
         grid-template-columns: 1fr;
+        gap: 20px;
     }
 
+    /* Form card mobile */
     .form-card {
-        padding: 25px;
+        padding: 25px 20px;
+        margin: 0 10px;
     }
 
     .result-total {
         font-size: 1.5rem;
+        padding: 15px;
+    }
+
+    /* Section title mobile */
+    .section-title {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+}
+
+/* Perbaikan tambahan untuk layar sangat kecil */
+@media (max-width: 480px) {
+    .navbar .container {
+        padding: 0 15px;
+    }
+
+    .logo {
+        font-size: 1.3rem;
+    }
+
+    .language-switcher {
+        right: 50px;
+    }
+
+    .lang-toggle {
+        padding: 5px 10px;
+        font-size: 0.8rem;
+    }
+
+    .hero {
+        padding: 80px 15px;
+    }
+
+    .hero-content h1 {
+        font-size: 1.8rem;
+    }
+
+    .hero-illustration i {
+        font-size: 6rem;
+    }
+
+    .form-section,
+    .about-section,
+    .contact-section {
+        padding: 60px 15px;
+    }
+
+    .form-card {
+        padding: 20px 15px;
+    }
+
+    .feature-box {
+        padding: 20px 15px;
+    }
+
+    .feature-box i {
+        font-size: 2.5rem;
+    }
+}
+
+/* Perbaikan untuk landscape mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+    .nav-menu {
+        height: auto;
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+
+    .nav-menu li {
+        padding: 10px 0;
+    }
+
+    .hero {
+        padding: 80px 20px;
+    }
+
+    .hero-content h1 {
+        font-size: 1.8rem;
+    }
+}
+
+/* Pastikan dropdown bahasa selalu di atas menu mobile */
+@media (max-width: 768px) {
+    .lang-dropdown.active {
+        z-index: 1003;
     }
 }
