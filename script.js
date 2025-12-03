@@ -50,6 +50,14 @@
                 }
             });
 
+            // Update hint text
+            document.querySelectorAll('.hint-text').forEach(el => {
+                const text = el.getAttribute(`data-lang-${lang}`);
+                if (text) {
+                    el.textContent = text;
+                }
+            });
+
             // Update document language
             document.documentElement.lang = lang;
         }
@@ -94,6 +102,23 @@
             return angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         }
 
+        // Validasi input berat
+        function validateWeightInput(input) {
+            const value = parseFloat(input.value);
+            if (isNaN(value)) {
+                input.setCustomValidity('');
+                return;
+            }
+            
+            if (value < 0.1) {
+                input.setCustomValidity('Berat minimal 0.1 kg');
+            } else if (value > 1000) {
+                input.setCustomValidity('Berat maksimal 1000 kg');
+            } else {
+                input.setCustomValidity('');
+            }
+        }
+
         // Mapping jarak antar kota di Provinsi Yogyakarta
         const jarakKota = {
             "Kota Yogyakarta": { "Kota Yogyakarta": 10, "Sleman": 15, "Bantul": 25, "Gunungkidul": 45, "Kulonprogo": 35 },
@@ -120,22 +145,26 @@
                 tarifPerKg = 5000;
             }
 
-            return berat * tarifPerKg;
+            // Pembulatan ke atas untuk berat minimal
+            const beratDihitung = berat < 1 ? 1 : berat;
+            return beratDihitung * tarifPerKg;
         }
 
         // Translations for alerts
         const translations = {
             id: {
                 fillAllData: 'Mohon lengkapi semua data!',
-                minWeight: 'Masukkan berat minimal 1 kg',
+                minWeight: 'Masukkan berat minimal 0.1 kg',
                 cityNotAvailable: 'Kota tujuan tidak tersedia di provinsi Yogyakarta',
-                messageSent: 'Pesan berhasil dikirim!'
+                messageSent: 'Pesan berhasil dikirim!',
+                invalidWeight: 'Berat harus antara 0.1 kg sampai 1000 kg'
             },
             en: {
                 fillAllData: 'Please complete all data!',
-                minWeight: 'Enter minimum weight of 1 kg',
+                minWeight: 'Enter minimum weight of 0.1 kg',
                 cityNotAvailable: 'Destination city is not available in Yogyakarta province',
-                messageSent: 'Message sent successfully!'
+                messageSent: 'Message sent successfully!',
+                invalidWeight: 'Weight must be between 0.1 kg and 1000 kg'
             }
         };
 
@@ -145,15 +174,28 @@
             
             const kotaAsal = document.getElementById('kotaAsal').value;
             const kotaTujuan = document.getElementById('kotaTujuan').value;
-            const beratPaket = parseFloat(document.getElementById('beratPaket').value);
+            const beratInput = document.getElementById('beratPaket');
+            const beratPaket = parseFloat(beratInput.value);
             
-            if (!kotaAsal || !kotaTujuan || !beratPaket) {
+            // Validasi field kosong
+            if (!kotaAsal || !kotaTujuan || !beratInput.value) {
                 showAlert(translations[currentLang].fillAllData, 'error');
                 return;
             }
             
-            if (beratPaket < 1) {
+            // Validasi berat
+            if (isNaN(beratPaket)) {
+                showAlert(translations[currentLang].invalidWeight, 'error');
+                return;
+            }
+            
+            if (beratPaket < 0.1) {
                 showAlert(translations[currentLang].minWeight, 'error');
+                return;
+            }
+            
+            if (beratPaket > 1000) {
+                showAlert(translations[currentLang].invalidWeight, 'error');
                 return;
             }
             
@@ -207,4 +249,15 @@
             
             alert(translations[currentLang].messageSent);
             this.reset();
+        });
+
+        // Inisialisasi hint text saat load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set hint text berdasarkan bahasa saat ini
+            document.querySelectorAll('.hint-text').forEach(el => {
+                const text = el.getAttribute(`data-lang-${currentLang}`);
+                if (text) {
+                    el.textContent = text;
+                }
+            });
         });
