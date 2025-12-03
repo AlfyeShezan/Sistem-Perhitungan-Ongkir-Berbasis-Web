@@ -1,4 +1,4 @@
-       // Multi-language support
+        // Multi-language support
         let currentLang = 'id';
 
         // Toggle language dropdown
@@ -50,14 +50,6 @@
                 }
             });
 
-            // Update hint text
-            document.querySelectorAll('.hint-text').forEach(el => {
-                const text = el.getAttribute(`data-lang-${lang}`);
-                if (text) {
-                    el.textContent = text;
-                }
-            });
-
             // Update document language
             document.documentElement.lang = lang;
         }
@@ -102,20 +94,6 @@
             return angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         }
 
-        // Validasi input berat (hanya angka dan titik desimal)
-        function validateWeightInput(input) {
-            // Hapus karakter non-numerik kecuali titik desimal
-            let value = input.value.replace(/[^0-9.]/g, '');
-            
-            // Hapus titik desimal berlebihan
-            const parts = value.split('.');
-            if (parts.length > 2) {
-                value = parts[0] + '.' + parts.slice(1).join('');
-            }
-            
-            input.value = value;
-        }
-
         // Mapping jarak antar kota di Provinsi Yogyakarta
         const jarakKota = {
             "Kota Yogyakarta": { "Kota Yogyakarta": 10, "Sleman": 15, "Bantul": 25, "Gunungkidul": 45, "Kulonprogo": 35 },
@@ -142,35 +120,24 @@
                 tarifPerKg = 5000;
             }
 
-            // Pembulatan ke atas untuk berat kurang dari 1 kg
-            const beratDihitung = berat < 1 ? 1 : berat;
-            return Math.ceil(beratDihitung * tarifPerKg);
+            return berat * tarifPerKg;
         }
 
         // Translations for alerts
         const translations = {
             id: {
                 fillAllData: 'Mohon lengkapi semua data!',
-                minWeight: 'Masukkan berat minimal 0.1 kg',
-                maxWeight: 'Berat maksimal 1000 kg',
-                invalidWeight: 'Masukkan berat yang valid (angka)',
+                minWeight: 'Masukkan berat minimal 1 kg',
                 cityNotAvailable: 'Kota tujuan tidak tersedia di provinsi Yogyakarta',
                 messageSent: 'Pesan berhasil dikirim!'
             },
             en: {
                 fillAllData: 'Please complete all data!',
-                minWeight: 'Enter minimum weight of 0.1 kg',
-                maxWeight: 'Maximum weight 1000 kg',
-                invalidWeight: 'Enter valid weight (numbers only)',
+                minWeight: 'Enter minimum weight of 1 kg',
                 cityNotAvailable: 'Destination city is not available in Yogyakarta province',
                 messageSent: 'Message sent successfully!'
             }
         };
-
-        // Event listener untuk validasi real-time input berat
-        document.getElementById('beratPaket').addEventListener('input', function(e) {
-            validateWeightInput(this);
-        });
 
         // Event listener form cek ongkir
         document.getElementById('ongkirForm').addEventListener('submit', function(e) {
@@ -178,38 +145,21 @@
             
             const kotaAsal = document.getElementById('kotaAsal').value;
             const kotaTujuan = document.getElementById('kotaTujuan').value;
-            const beratInput = document.getElementById('beratPaket');
-            const beratValue = beratInput.value.trim();
+            const beratPaket = parseFloat(document.getElementById('beratPaket').value);
             
-            // Validasi field kosong
-            if (!kotaAsal || !kotaTujuan || !beratValue) {
+            if (!kotaAsal || !kotaTujuan || !beratPaket) {
                 showAlert(translations[currentLang].fillAllData, 'error');
                 return;
             }
             
-            // Validasi berat adalah angka
-            const beratPaket = parseFloat(beratValue);
-            if (isNaN(beratPaket)) {
-                showAlert(translations[currentLang].invalidWeight, 'error');
-                return;
-            }
-            
-            // Validasi rentang berat
-            if (beratPaket < 0.1) {
+            if (beratPaket < 1) {
                 showAlert(translations[currentLang].minWeight, 'error');
                 return;
             }
             
-            if (beratPaket > 1000) {
-                showAlert(translations[currentLang].maxWeight, 'error');
-                return;
-            }
-            
-            // Tampilkan loading, sembunyikan hasil sebelumnya
             document.getElementById('resultCard').style.display = 'none';
             document.getElementById('loader').style.display = 'block';
             
-            // Simulasi proses loading
             setTimeout(() => {
                 const totalOngkir = hitungOngkir(kotaAsal, kotaTujuan, beratPaket);
 
@@ -219,22 +169,27 @@
                     return;
                 }
 
-                // Tampilkan hasil
+                const response = {
+                    kota_asal: kotaAsal,
+                    kota_tujuan: kotaTujuan,
+                    berat: beratPaket,
+                    total_ongkir: totalOngkir
+                };
+                
                 document.getElementById('loader').style.display = 'none';
-                document.getElementById('resultAsal').textContent = kotaAsal;
-                document.getElementById('resultTujuan').textContent = kotaTujuan;
-                document.getElementById('resultBerat').textContent = beratPaket + ' kg';
-                document.getElementById('resultTotal').textContent = formatRupiah(totalOngkir);
+                document.getElementById('resultAsal').textContent = response.kota_asal;
+                document.getElementById('resultTujuan').textContent = response.kota_tujuan;
+                document.getElementById('resultBerat').textContent = response.berat + ' kg';
+                document.getElementById('resultTotal').textContent = formatRupiah(response.total_ongkir);
                 
                 const resultCard = document.getElementById('resultCard');
                 resultCard.style.display = 'block';
                 
-                // Scroll ke hasil
                 setTimeout(() => {
                     resultCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 }, 100);
                 
-            }, 1500); // 1.5 detik loading
+            }, 1500);
         });
 
         // Event listener form kontak
@@ -252,21 +207,4 @@
             
             alert(translations[currentLang].messageSent);
             this.reset();
-        });
-
-        // Inisialisasi hint text saat load
-        document.addEventListener('DOMContentLoaded', function() {
-            // Set hint text berdasarkan bahasa saat ini
-            document.querySelectorAll('.hint-text').forEach(el => {
-                const text = el.getAttribute(`data-lang-${currentLang}`);
-                if (text) {
-                    el.textContent = text;
-                }
-            });
-            
-            // Tambahkan event listener untuk input berat
-            const beratInput = document.getElementById('beratPaket');
-            beratInput.addEventListener('input', function() {
-                validateWeightInput(this);
-            });
         });
