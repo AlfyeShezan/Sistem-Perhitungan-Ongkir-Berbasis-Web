@@ -14,8 +14,177 @@
     --white: #FFFFFF;
     --error-color: #e74c3c;
     --success-color: #27ae60;
+    --warning-color: #f39c12;
+    --info-color: #3498db;
 }
 
+/* ================================ */
+/* ENHANCED ALERT SYSTEM STYLES */
+/* ================================ */
+
+.alert-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    max-width: 350px;
+    width: 90%;
+}
+
+.alert-system-alert {
+    background: var(--white);
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    animation: slideInRight 0.3s ease forwards;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    border-left: 4px solid transparent;
+    border: 1px solid transparent;
+}
+
+.alert-system-alert.fade-out {
+    animation: slideOutRight 0.3s ease forwards;
+}
+
+/* Alert Types */
+.alert-system-alert-error {
+    border-left-color: var(--error-color);
+    border-color: #FFE5E5;
+    background: #FFF5F5;
+}
+
+.alert-system-alert-success {
+    border-left-color: var(--success-color);
+    border-color: #E5F9E5;
+    background: #F5FFF5;
+}
+
+.alert-system-alert-warning {
+    border-left-color: var(--warning-color);
+    border-color: #FFF3CD;
+    background: #FFFCF0;
+}
+
+.alert-system-alert-info {
+    border-left-color: var(--info-color);
+    border-color: #D1ECF1;
+    background: #F0F9FF;
+}
+
+/* Alert Content */
+.alert-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+}
+
+.alert-icon {
+    font-size: 1.2rem;
+    min-width: 24px;
+    text-align: center;
+}
+
+.alert-system-alert-error .alert-icon {
+    color: var(--error-color);
+}
+
+.alert-system-alert-success .alert-icon {
+    color: var(--success-color);
+}
+
+.alert-system-alert-warning .alert-icon {
+    color: var(--warning-color);
+}
+
+.alert-system-alert-info .alert-icon {
+    color: var(--info-color);
+}
+
+.alert-message {
+    font-size: 0.9rem;
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--dark-text);
+}
+
+.alert-close {
+    background: none;
+    border: none;
+    color: #888;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0 5px;
+    margin-left: 10px;
+    transition: color 0.2s;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+}
+
+.alert-close:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--error-color);
+}
+
+/* Alert Progress Bar */
+.alert-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background: currentColor;
+    opacity: 0.3;
+    animation: progressBarMinimal 4s linear forwards;
+    width: 100%;
+    border-radius: 0 0 8px 8px;
+}
+
+/* Animations */
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+}
+
+@keyframes progressBarMinimal {
+    from {
+        width: 100%;
+    }
+    to {
+        width: 0%;
+    }
+}
+
+/* ================================ */
+/* NAVBAR */
+/* ================================ */
 body {
     font-family: 'Poppins', sans-serif;
     color: var(--dark-text);
@@ -370,6 +539,26 @@ body {
     box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.1);
 }
 
+/* Form Error States */
+.form-group.error .form-control {
+    border-color: var(--error-color) !important;
+    box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.2) !important;
+}
+
+.form-group.error label {
+    color: var(--error-color);
+}
+
+.form-control.error {
+    border-color: var(--error-color) !important;
+    box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.2) !important;
+}
+
+.form-control.success {
+    border-color: var(--success-color) !important;
+    box-shadow: 0 0 0 2px rgba(39, 174, 96, 0.2) !important;
+}
+
 .btn-calculate {
     width: 100%;
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
@@ -470,36 +659,14 @@ body {
     100% { transform: rotate(360deg); }
 }
 
-/* Alert */
-.alert {
-    padding: 15px 20px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    display: none;
-    animation: slideDownAlert 0.3s ease;
+/* OLD ALERT STYLES (for compatibility - hide them) */
+#alertBox.alert {
+    display: none !important;
 }
 
-@keyframes slideDownAlert {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.alert-error {
-    background: #FFE5E5;
-    color: var(--error-color);
-    border-left: 4px solid var(--error-color);
-}
-
+.alert-error,
 .alert-success {
-    background: #E5F9E5;
-    color: var(--success-color);
-    border-left: 4px solid var(--success-color);
+    display: none !important;
 }
 
 /* About Section */
@@ -563,25 +730,12 @@ body {
     margin: 0 auto;
 }
 
-/* Styling untuk form error states */
-.form-group.error .form-control {
-    border-color: var(--error-color);
-    box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.2);
-}
-
-.form-group.error label {
-    color: var(--error-color);
-}
-
+/* Error message styling */
 .error-message {
     color: var(--error-color);
     font-size: 0.85rem;
     margin-top: 5px;
     display: none;
-}
-
-.form-control.error {
-    border-color: var(--error-color);
 }
 
 /* Character counter */
@@ -598,15 +752,6 @@ body {
 
 .char-counter.error {
     color: var(--error-color);
-}
-
-/* Success state */
-.form-group.success .form-control {
-    border-color: var(--success-color);
-}
-
-.form-group.success label {
-    color: var(--success-color);
 }
 
 /* Footer */
@@ -748,6 +893,23 @@ footer p {
         font-size: 2rem;
         margin-bottom: 2rem;
     }
+    
+    /* Alert system mobile */
+    .alert-container {
+        top: 15px;
+        right: 15px;
+        left: 15px;
+        max-width: none;
+        width: auto;
+    }
+    
+    .alert-system-alert {
+        padding: 12px 15px;
+    }
+    
+    .alert-message {
+        font-size: 0.85rem;
+    }
 }
 
 /* Perbaikan tambahan untuk layar sangat kecil */
@@ -798,6 +960,25 @@ footer p {
     .feature-box i {
         font-size: 2.5rem;
     }
+    
+    /* Alert system small mobile */
+    .alert-container {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+    }
+    
+    .alert-system-alert {
+        padding: 10px 12px;
+    }
+    
+    .alert-content {
+        gap: 10px;
+    }
+    
+    .alert-message {
+        font-size: 0.8rem;
+    }
 }
 
 /* Perbaikan untuk landscape mobile */
@@ -826,4 +1007,36 @@ footer p {
     .lang-dropdown.active {
         z-index: 1003;
     }
+}
+
+/* Form validation feedback */
+.validation-feedback {
+    display: none;
+    font-size: 0.85rem;
+    margin-top: 5px;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.validation-feedback.error {
+    display: block;
+    color: var(--error-color);
+    background: #FFF5F5;
+    border: 1px solid #FFE5E5;
+}
+
+.validation-feedback.success {
+    display: block;
+    color: var(--success-color);
+    background: #F5FFF5;
+    border: 1px solid #E5F9E5;
+}
+
+/* Focus styles for accessibility */
+.form-control:focus,
+.btn-calculate:focus,
+.btn-primary:focus,
+.alert-close:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
 }
