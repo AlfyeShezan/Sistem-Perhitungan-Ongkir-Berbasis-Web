@@ -453,7 +453,7 @@ function handleOngkirSubmit(e) {
         document.getElementById('resultAsal').textContent = kotaAsal;
         document.getElementById('resultTujuan').textContent = kotaTujuan;
         document.getElementById('resultBerat').textContent = beratPaket + ' kg';
-        document.getElementById('resultTotal').textContent = 'Rp ' + formatRupiah(totalOngkir);
+        document.getElementById('resultTotal').textContent = formatRupiah(totalOngkir);
         
         const resultCard = document.getElementById('resultCard');
         resultCard.style.display = 'block';
