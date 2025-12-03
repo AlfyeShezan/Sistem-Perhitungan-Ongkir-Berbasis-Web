@@ -126,7 +126,13 @@
                             <i class="fas fa-weight-hanging"></i>
                             <span data-lang-id="Berat Paket (kg)" data-lang-en="Package Weight (kg)">Berat Paket (kg)</span>
                         </label>
-                        <input type="number" class="form-control" id="beratPaket" data-lang-placeholder-id="Masukkan berat paket" data-lang-placeholder-en="Enter package weight" placeholder="Masukkan berat paket" min="1" step="0.1" required>
+                        <input type="number" class="form-control" id="beratPaket" 
+                               data-lang-placeholder-id="Masukkan berat paket" 
+                               data-lang-placeholder-en="Enter package weight" 
+                               placeholder="Masukkan berat paket" 
+                               min="0.1" step="0.1" required
+                               oninput="validateWeightInput(this)">
+                        <div class="hint-text" data-lang-id="Minimal 0.1 kg" data-lang-en="Minimum 0.1 kg">Minimal 0.1 kg</div>
                     </div>
 
                     <button type="submit" class="btn-calculate">
@@ -266,3 +272,4 @@
     <script src="script.js"></script>
 </body>
 </html>
+
